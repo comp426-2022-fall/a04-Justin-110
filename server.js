@@ -17,7 +17,7 @@ if (args.port) {
 
 //Encoded URI
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended:true}));
 
 // Check endpoint at /app/ that returns 200 OK
 app.get('/app/', (req, res, next) => {
