@@ -5,10 +5,7 @@ import { roll } from "./lib/roll.js";
 const app = express()
 const args = minimist(process.argv.slice(2))
 
-var port = 5000;
-if(args.port){
-    port = args.port
-}
+let port = args.port ? args.port : 5000
 
 //Encoded URI
 app.use(express.json());
