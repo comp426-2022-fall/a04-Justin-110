@@ -21,6 +21,10 @@ app.get('/app/', (req, res, next) => {
     res.send('200 OK')
 })
 
+const sides = 6
+const dice = 2
+const rolls = 1
+
 app.get('/app/roll/', (req, res, next) => {
     res.status(200).json(roll(sides, dice, rolls))
 })
