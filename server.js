@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import minimist from 'minimist';
 import express, { application } from 'express';
 import { roll } from "./lib/roll.js";
