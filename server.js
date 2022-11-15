@@ -5,7 +5,13 @@ import { roll } from "./lib/roll.js";
 const app = express()
 const args = minimist(process.argv.slice(2))
 
-let port = args.port ? args.port : 5000
+//take an arbitrary port number as a command line argument, default to 5000 if no argument is given
+var port = 0
+if (args.port) {
+    port = args.port
+} else {
+    port = 5000
+}
 
 //Encoded URI
 app.use(express.json());
@@ -23,8 +29,14 @@ const dice = 2
 const rolls = 1
 
 app.get('/app/roll/', (req, res, next) => {
-    res.status(200).json(roll(sides, dice, rolls))
+    res.status(200)
+    res.send(roll(parseInt(sides, dice, rolls)))
 })
+
+app.post('/app/roll/', (req, res) => {
+    res.status(200);
+    res.send(roll(parseInt(req.body.sides),parseInt(req.body.dice),parseInt(req.body.rolls)));
+});
 
 app.get('/app/roll/:sides/', (req, res, next) => {
     res.status(200);
@@ -51,9 +63,5 @@ app.get('*', (req, res, next) => {
 	res.status(404)
     res.send('404 NOT FOUND')
 })
-
-app.post('/app/roll/', (req, res) => {
-    res.send(roll(parseInt(req.body.sides),parseInt(req.body.dice),parseInt(req.body.rolls)));
-});
 
 app.listen(port)
