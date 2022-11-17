@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
 import minimist from 'minimist';
-import express, { application } from 'express';
+import express from 'express';
 import { roll } from "./lib/roll.js";
 
-const express = require('express')
 const app = express()
 const args = minimist(process.argv.slice(2))
 
 //take an arbitrary port number as a command line argument, default to 5000 if no argument is given
-const port = 5000
+let port = args.port ? args.port : 5000
 
 //Encoded URI
 app.use(express.json());
