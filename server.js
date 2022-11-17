@@ -30,7 +30,7 @@ const sides = 6
 const dice = 2
 const rolls = 1
 
-app.get('/app/roll/', (req, res, next) => {
+app.get('/app/roll/', (req, res) => {
     res.status(200)
     res.send(roll(parseInt(sides, dice, rolls)))
 })
@@ -40,23 +40,23 @@ app.post('/app/roll/', (req, res) => {
     res.send(roll(parseInt(req.body.sides),parseInt(req.body.dice),parseInt(req.body.rolls)));
 });
 
-app.get('/app/roll/:sides/', (req, res, next) => {
+app.get('/app/roll/:sides/', (req, res) => {
     res.status(200);
     res.send(roll(parseInt(req.params.sides), dice, rolls))
 })
 
-app.get('/app/roll/:sides/:dice/', (req, res, next) => {
+app.get('/app/roll/:sides/:dice/', (req, res) => {
     res.status(200);
     res.send(roll(parseInt(req.params.sides), parseInt(req.params.dice), rolls))
 })
 
-app.get('/app/roll/:sides/:dice/:rolls/', (req, res, next) => {
+app.get('/app/roll/:sides/:dice/:rolls/', (req, res) => {
     res.status(200);
     res.send(roll(parseInt(req.params.sides),parseInt(req.params.dice),parseInt(req.params.rolls)))
 })
 
 // Default API endpoint that returns 404 NOT FOUND for any endpoints that are not defined
-app.get('*', (req, res, next) => {
+app.get('*', (req, res) => {
 	res.status(404)
     res.send('404 NOT FOUND')
 })
