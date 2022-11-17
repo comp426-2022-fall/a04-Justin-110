@@ -1,18 +1,21 @@
 #!/usr/bin/env node
-
+import { roll } from "./lib/roll.js";
 import minimist from 'minimist';
 import express from 'express';
-import { roll } from "./lib/roll.js";
 
 const app = express()
 const args = minimist(process.argv.slice(2))
 
-//take an arbitrary port number as a command line argument, default to 5000 if no argument is given
-let port = args.port ? args.port : 5000
-
 //Encoded URI
-app.use(express.json());
+//app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+//take an arbitrary port number as a command line argument, default to 5000 if no argument is given
+var port = 5000
+if ("port" in args) {
+    port = args.port
+}
+
 
 app.get('/', (req, res, next) => {
 	res.send('Hello, world!')
@@ -53,8 +56,6 @@ app.get('/app/roll/:sides/:dice/:rolls/', (req, res, next) => {
     res.status(200);
     res.send(roll(parseInt(req.params.sides),parseInt(req.params.dice),parseInt(req.params.rolls)))
 })
-
-app.listen(port)
 
 // Default API endpoint that returns 404 NOT FOUND for any endpoints that are not defined
 app.get('*', (req, res, next) => {
