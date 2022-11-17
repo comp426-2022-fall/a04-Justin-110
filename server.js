@@ -4,20 +4,20 @@ import minimist from 'minimist';
 import express, { application } from 'express';
 import { roll } from "./lib/roll.js";
 
+const express = require('express')
 const app = express()
 const args = minimist(process.argv.slice(2))
 
 //take an arbitrary port number as a command line argument, default to 5000 if no argument is given
-var port = 0
-if (args.port) {
-    port = args.port
-} else {
-    port = 5000
-}
+const port = 5000
 
 //Encoded URI
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+app.get('/', (req, res, next) => {
+	res.send('Hello, world!')
+})
 
 // Check endpoint at /app/ that returns 200 OK
 app.get('/app/', (req, res, next) => {
@@ -57,8 +57,6 @@ app.get('/app/roll/:sides/:dice/:rolls/', (req, res, next) => {
 
 app.listen(port)
 
-
-
 // Default API endpoint that returns 404 NOT FOUND for any endpoints that are not defined
 app.get('*', (req, res, next) => {
     res.type('html')
@@ -66,4 +64,6 @@ app.get('*', (req, res, next) => {
     res.send('404 NOT FOUND')
 })
 
-app.listen(port)
+app.listen(port, () => {
+	console.log("Server listening on port" + port)
+})
