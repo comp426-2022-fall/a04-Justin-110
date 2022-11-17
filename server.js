@@ -7,7 +7,6 @@ const app = express()
 const args = minimist(process.argv.slice(2))
 
 //Encoded URI
-//app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //take an arbitrary port number as a command line argument, default to 5000 if no argument is given
@@ -23,7 +22,6 @@ app.get('/', (req, res, next) => {
 
 // Check endpoint at /app/ that returns 200 OK
 app.get('/app/', (req, res, next) => {
-    res.type('html')
     res.status(200)
     res.send('200 OK')
 })
@@ -59,7 +57,6 @@ app.get('/app/roll/:sides/:dice/:rolls/', (req, res, next) => {
 
 // Default API endpoint that returns 404 NOT FOUND for any endpoints that are not defined
 app.get('*', (req, res, next) => {
-    res.type('html')
 	res.status(404)
     res.send('404 NOT FOUND')
 })
